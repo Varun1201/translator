@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LinguaAI Translator</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <header class="header">
+    <div class="logo">
+      <div class="logo-icon">🌐</div>
+      <h1 class="logo-text">Lingua<span>AI</span></h1>
+    </div>
+    <p class="tagline">Powered by Llama 3.3 70B · Breaking language barriers</p>
+  </header>
+
+  <main class="main">
+
+    <!-- ── Language bar ── -->
+    <div class="lang-bar">
+      <select id="src-lang" class="lang-select">
+        <option value="auto">🔍 Detect Language</option>
+        {% for lang in languages %}
+        <option value="{{ lang }}">{{ lang }}</option>
+        {% endfor %}
+      </select>
+
+      <button class="swap-btn" id="swap-btn" title="Swap languages">⇄</button>
+
+      <select id="tgt-lang" class="lang-select">
+        {% for lang in languages %}
+        <option value="{{ lang }}" {% if lang == "Spanish" %}selected{% endif %}>{{ lang }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <!-- ── Panels ── -->
+    <div class="panels">
+
+      <!-- Input -->
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-label">Input</span>
+          <span class="char-count" id="char-count">0 / 3000</span>
+        </div>
+        <textarea
+          id="input-text"
+          placeholder="Type or paste text here… (Ctrl+Enter to translate)"
+          maxlength="3000"
+        ></textarea>
+        <div class="panel-footer">
+          <button class="icon-btn" id="clear-btn">✕ Clear</button>
+          <button class="icon-btn" id="paste-btn">📋 Paste</button>
+        </div>
+      </div>
+
+      <!-- Output -->
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-label">Translation</span>
+          <span class="detected-badge" id="detected-badge"></span>
+        </div>
+        <div class="output-area" id="output-area">
+          <span class="placeholder">Translation will appear here…</span>
+        </div>
+        <div class="panel-footer">
+          <button class="icon-btn" id="copy-btn">📋 Copy</button>
+          <button class="icon-btn" id="back-btn">↩ Translate back</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Error -->
+    <div class="error-msg" id="error-box" style="display:none;"></div>
+
+    <!-- Translate button -->
+    <button class="translate-btn" id="translate-btn">✨ Translate</button>
+
+    <!-- History -->
+    <div class="history-section" id="history-section" style="display:none;">
+      <p class="history-title">Recent translations</p>
+      <div class="history-items" id="history-items"></div>
+    </div>
+
+  </main>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
